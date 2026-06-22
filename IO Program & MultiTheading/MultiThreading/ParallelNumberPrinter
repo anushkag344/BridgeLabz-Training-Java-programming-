@@ -1,0 +1,28 @@
+class NumberThread extend Thread{
+    public void run(){
+        for(int i=1;i<50;i++){
+            System.out.println(Thread.currentThread().getName()+ " : " + i);
+        }
+    }
+}
+class NumberRunnable implements Runnable{
+    public void run(){
+        for(int i=51;i<100;i++){
+            System.out.println(Thread.currentThread().getName()+":"+i);
+
+        }
+    }
+}
+class ParellelNumberPrinter{
+    public static void main(String[] args){
+        NumberThread t1=new NumberThread();
+        t1.setName("Thread 1");
+        Thread t2 = new Thread(new NumberRunnable());
+        t2.setName("Thread-2");
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+        System.out.println("All threads completed");
+    }
+}
